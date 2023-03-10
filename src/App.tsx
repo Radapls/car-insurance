@@ -11,11 +11,11 @@
  * @date Friday, 10th March 2023
  */
 
+import Insurance from "./components/Insurance";
+
 export default function App()
 {
     return (
-        <h1>
-            App
-        </h1>
+        <Insurance />
     )
 }
