@@ -6,20 +6,21 @@
  * This file, project or its parts can not be copied and/or distributed without
  * the express permission of Juan Felipe Rada.
  *
- * @file App.tsx
+ * @file Error.tsx
  * @author Juan Felipe Rada <radapls8@gmail.com>
  * @date Friday, 10th March 2023
  */
 
-import { QuoterProvider } from './context/QuoteProvider';
+import useQuoter from "../hooks/useQuoter"
 
-import Insurance from "./components/Insurance";
-
-export default function App()
+export default function Error()
 {
+    const { error } = useQuoter()
     return (
-        <QuoterProvider key={''} type={''} props={''}>
-            <Insurance />
-        </QuoterProvider>
+        <div className="border text-center border-red-400 bg-red-100 py-3 text-red-700 rounded-lg font-semibold">
+            <p className="">
+                {error}
+            </p>
+        </div>
     )
 }

@@ -11,14 +11,16 @@
  * @date Friday, 10th March 2023
  */
 
+import logo from "../../public/android-chrome-512x512.png";
 import Form from "./Form";
 
 export default function Insurance()
 {
     return (
         <>
-            <header className="my-10">
-                <h1 className="text-white text-center text-4xl font-black">
+            <header className="my-10 flex justify-center space-x-5">
+                <img src={logo} alt="favicon" className="h-10 drop-shadow-xl shadow-black" draggable={false} />
+                <h1 className="text-white text-center text-4xl font-black shadow-black drop-shadow-xl cursor-default">
                     Car insurance quoter
                 </h1>
             </header>

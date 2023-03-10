@@ -13,19 +13,48 @@
 
 import { Fragment } from 'react';
 import { brands, plans, years } from "../constants";
+import useQuoter from "../hooks/useQuoter";
+import Error from "./Error";
 
 export default function Form()
 {
+    const { handleChange, data, error, setError, quoteInsurance } = useQuoter();
+
+    const handleSubmit: any = (e: Event): void =>
+    {
+        e.preventDefault();
+
+        if (Object.values(data).includes(''))
+        {
+            setError('All the fields are required.');
+            return;
+        }
+
+        setError('');
+        quoteInsurance();
+
+    }
+
+
     return (
         <>
-            <form>
+
+            {error &&
+                <Error />
+            }
+            <form
+                onSubmit={handleSubmit}>
 
                 <div className="my-5">
                     <label className="block mb-3 font-bold text-gray-400 uppercase">
                         Brand
                     </label>
 
-                    <select name="brand" className="w-full p-3 bg-white border border-gray-200">
+                    <select
+                        name="brand"
+                        className="w-full p-3 bg-white border border-gray-200 rounded-lg"
+                        onChange={e => handleChange(e)}
+                        value={data.brand}>
 
                         <option value="">--- Select a brand ---</option>
 
@@ -45,7 +74,11 @@ export default function Form()
                         Brand
                     </label>
 
-                    <select name="brand" className="w-full p-3 bg-white border border-gray-200">
+                    <select
+                        name="year"
+                        className="w-full p-3 bg-white border border-gray-200 rounded-lg"
+                        onChange={e => handleChange(e)}
+                        value={data.year}>
 
                         <option value="">--- Select the year ---</option>
 
@@ -74,6 +107,7 @@ export default function Form()
                                 </label>
 
                                 <input
+                                    onChange={e => handleChange(e)}
                                     type="radio"
                                     name="plan"
                                     value={plan.id} />
@@ -83,7 +117,10 @@ export default function Form()
 
                 </div>
 
-                <input type="submit" value="quote" className="w-full bg-indigo-500 hover:bg-indigo-600 transition-colors text-white cursor-pointer p-3 uppercase font-bold" />
+                <input
+                    type="submit"
+                    value="quote"
+                    className="w-full bg-indigo-500 hover:bg-indigo-600 transition-colors text-white cursor-pointer p-3 uppercase font-bold rounded-lg" />
 
             </form>
 
