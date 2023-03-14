@@ -20,6 +20,8 @@ const QuoterContext = React.createContext<any>('');
 const QuoterProvider: React.FC<React.ReactPortal> = ({ children }) =>
 {
     const [ error, setError ] = useState('');
+    const [ result, setResult ] = useState('');
+    const [ loading, setLoading ] = useState(false);
 
     const [ data, setData ] = useState<Quoter>({
         brand: 0,
@@ -41,22 +43,31 @@ const QuoterProvider: React.FC<React.ReactPortal> = ({ children }) =>
         let result: number = 2000;
 
         // Obtener diferencia por año
-        const yearDifference = getYearDifference(+data.year)
+        const yearDifference = getYearDifference(+data.year);
 
         // Hay que restar el 3% por cada año
-        result -= ((yearDifference * 3) * result) / 100
+        result -= ((yearDifference * 3) * result) / 100;
 
         // Americano 15%
         // Europeo 30%
         // Asiatico 5%
-        result *= calculateBrand(+data.brand)
+        result *= calculateBrand(+data.brand);
 
         // Basico 20%
         // Completo 50%
 
-        result *= calculatePlan(+data.plan)
+        result *= calculatePlan(+data.plan);
 
-        const money = formatMoney(result).toString()
+        const money = formatMoney(result).toString();
+
+
+        setLoading(true);
+
+        setTimeout(() =>
+        {
+            setResult(money);
+            setLoading(false);
+        }, 3000);
     }
 
     return (
@@ -66,7 +77,9 @@ const QuoterProvider: React.FC<React.ReactPortal> = ({ children }) =>
                 handleChange,
                 error,
                 setError,
-                quoteInsurance
+                quoteInsurance,
+                result,
+                loading
             }}>
 
             {children}

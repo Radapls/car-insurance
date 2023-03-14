@@ -12,10 +12,16 @@
  */
 
 import logo from "../../public/android-chrome-512x512.png";
+import useQuoter from "../hooks/useQuoter";
 import Form from "./Form";
+import Result from "./Result";
+import Spinner from "./Spinner";
 
 export default function Insurance()
 {
+
+    const { loading } = useQuoter();
+
     return (
         <>
             <header className="my-10 flex justify-center space-x-5">
@@ -27,6 +33,8 @@ export default function Insurance()
 
             <main className="bg-white md:w-2/3 lg:w-2/4 mx-auto shadow rounded-lg p-10">
                 <Form />
+
+                {loading ? <Spinner /> : <Result />}
             </main>
         </>
     )
